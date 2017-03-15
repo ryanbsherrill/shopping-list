@@ -1,31 +1,26 @@
 /* SHOPPING LIST APP */
 
-// state object
+// STATE OBJECT
 var state = {
 	items: [],
 };
 
+// STATE MOD FUNCTIONS
 
-// state mod functions
-
-// add item
+// add
 var addItem = function(state, item) {
 	state.items.push(item);
 };
 
-// check item
-// uncheck item
-
-// delete item
+// delete
 var deleteItem = function(state, item) {
-	delete state.item;
+	state.items.splice(item, 1);
 };
-
 
 
 // RENDER FUNCTIONS
 
-// add item
+// add
 var renderList = function(state, element) {
 	var itemsHTML = state.items.map(function(item) {
 		return '<li>' + 
@@ -43,40 +38,27 @@ var renderList = function(state, element) {
 	element.html(itemsHTML);
 };
 
-// check item
-// uncheck item
-// delete item
 
 // EVENT LISTENERS
 
-// listen for add button
+// add
 $(document).ready(function() {
 	$('#js-shopping-list-form').submit(function(e) {
 		e.preventDefault();
 		addItem(state, $('#shopping-list-entry').val());
 		renderList(state, $('.shopping-list'));
+		$(this)[0].reset();
 	});
 });
 
-// listen for check button
+// delete
+$(document).on('click', '.shopping-item-delete', function() {
+	$(this).parent().parent().remove();
+	deleteItem(state, $(this));
+	console.log("bye bye!");
+});
+
+// check
 $(document).on('click', '.shopping-item-toggle', function() {
 	$(this).parent().siblings('.shopping-item').toggleClass('shopping-item__checked');
 });
-
-// listen for delete button
-$(document).on('click', '.shopping-item-delete', function() {
-	alert("BYE BYE!");
-	$(this).parent().parent().remove();
-});
-
-/*
-IMPORTANT CLASSES & IDs:
-form - ID - "#js-shopping-list-form"
-ul - class - ".shopping-list"
-input - ID - "#shopping-list-entry"
-
-FUNCTIONALITY TO ADD:
-add - DONE
-check - DONE
-delete - DONE
-*/
