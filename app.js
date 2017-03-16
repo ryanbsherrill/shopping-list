@@ -8,12 +8,12 @@ var state = {
 // STATE MOD FUNCTIONS
 
 // add
-var addItem = function(state, item) {
+var addItem = function(item) {
 	state.items.push(item);
 };
 
 // delete
-var deleteItem = function(state, item) {
+var deleteItem = function(item) {
 	state.items.splice(item, 1);
 };
 
@@ -21,7 +21,7 @@ var deleteItem = function(state, item) {
 // RENDER FUNCTIONS
 
 // add
-var renderList = function(state, element) {
+var renderList = function(element) {
 	var itemsHTML = state.items.map(function(item) {
 		return '<li>' + 
 		         '<span class="shopping-item">' + item + '</span>' + 
@@ -45,16 +45,17 @@ var renderList = function(state, element) {
 $(document).ready(function() {
 	$('#js-shopping-list-form').submit(function(e) {
 		e.preventDefault();
-		addItem(state, $('#shopping-list-entry').val());
-		renderList(state, $('.shopping-list'));
-		$(this)[0].reset();
+		addItem($('#shopping-list-entry').val());
+		renderList($('.shopping-list'));
+		$('#shopping-list-entry').val('');
+		//$(this)[0].reset();
 	});
 });
 
 // delete
 $(document).on('click', '.shopping-item-delete', function() {
 	$(this).parent().parent().remove();
-	deleteItem(state, $(this));
+	deleteItem($(this));
 	console.log("bye bye!");
 });
 
