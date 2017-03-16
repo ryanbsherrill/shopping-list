@@ -50,16 +50,17 @@ $(document).ready(function() {
 		$('#shopping-list-entry').val('');
 		//$(this)[0].reset();
 	});
-});
+	
+	
+	// delete
+	$('.shopping-list').on('click', '.shopping-item-delete', function() {
+		$(this).parent().parent().remove();
+		deleteItem($(this));
+		console.log("bye bye!");
+	});
 
-// delete
-$(document).on('click', '.shopping-item-delete', function() {
-	$(this).parent().parent().remove();
-	deleteItem($(this));
-	console.log("bye bye!");
-});
-
-// check
-$(document).on('click', '.shopping-item-toggle', function() {
-	$(this).parent().siblings('.shopping-item').toggleClass('shopping-item__checked');
+	// check
+	$('.shopping-list').on('click', '.shopping-item-toggle', function() {
+		$(this).parent().siblings('.shopping-item').toggleClass('shopping-item__checked');
+	});
 });
